@@ -1,0 +1,21 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+ 
+#Display everything available from the query
+SELECT *
+
+WHERE {
+
+#return all Concepts in the graph and their preferred labels
+?concepturi a skos:Concept ;
+skos:prefLabel ?preflabel .
+
+#Set Optional returns (to ignore sparql null rule), i.e. return blank instead of preventing result
+OPTIONAL {?concepturi skos:definition ?definition}. #optional definitions
+OPTIONAL {?concepturi skos:notation ?notation} . #optional notations
+
+#Apply filters
+FILTER(LANG(?preflabel)="en") #restrict to results with an english language label
+}
+
+#Display in order of: the label - alphabetical
+ORDER BY ?concepturi
