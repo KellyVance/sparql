@@ -1,0 +1,23 @@
+#This Query will find all the conceptSchemes in the graph and their definitions (where present).
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+ 
+#Display everything available from the query
+SELECT *
+
+WHERE {
+
+#Primary Subject: return all Concepts in the graph and their preferred labels
+?conceptScheme a skos:ConceptScheme ;
+skos:prefLabel ?preflabel .
+
+#Set Optional returns (to ignore sparql null rule), i.e. return blank instead of preventing result
+#Based on the ?ConceptScheme defined in the last step.
+OPTIONAL {?conceptScheme skos:definition ?definition}. #optional definitions
+
+#Apply filters
+FILTER(LANG(?preflabel)="en") #restrict to results with an english language label
+}
+
+#Display in order of: the uri of the conceptSchemes
+ORDER BY ?conceptScheme
