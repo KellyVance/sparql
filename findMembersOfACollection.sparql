@@ -1,0 +1,21 @@
+#This query will find all the concepts that are within a specified Collections within a vocabulary. In this example, the Geological Commodities included in the reportable group for extractive industries (e.g quarries).
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+
+#Return a table of the concept uris and their preferred names
+SELECT DISTINCT 
+  ?concepturi 
+  ?preflabel 
+
+WHERE {
+  
+  #Primary Subject: The Collection. Here the Collection is the subject and the concepts are objects that are members of the collection. Each concept does not explicitly specify all the collections it are a part of. Therefore the query starts from the Collection.
+  { <http://linked.data.gov.au/def/geo-commodities/qld-extractive-sales> skos:member ?concepturi .
+  ?concepturi skos:prefLabel ?preflabel . }
+
+  #Apply Filters
+  FILTER(LANG(?preflabel)="en") #labels that are tagged as English language
+  } 
+
+#Set Ordering
+ORDER BY LCASE(?preflabel) #by the preferred name of concepts
