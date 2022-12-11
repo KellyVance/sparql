@@ -1,0 +1,22 @@
+#This query will find all the concepts within a specified vocabulary (inScheme)
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+
+#Return a table of the concept uris and their preferred names
+SELECT DISTINCT 
+  ?concepturi
+  ?preflabel 
+
+WHERE {{
+
+  #Primary Subject: Concepts with preferred labels that are within the ConceptScheme
+    ?concepturi a skos:Concept ; 
+  		skos:prefLabel ?preflabel ; 
+    	skos:inScheme <http://linked.data.gov.au/def/geo-commodities> } #defining the conceptScheme of interest
+
+  #Apply a filter to English Language tags only on concept labels
+  FILTER(LANG(?preflabel)="en")
+} 
+
+#alphabetical order of concept uris
+ORDER BY ASC(?concepturi)
