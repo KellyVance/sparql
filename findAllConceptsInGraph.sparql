@@ -17,5 +17,5 @@ OPTIONAL {?concepturi skos:notation ?notation} . #optional notations
 FILTER(LANG(?preflabel)="en") #restrict to results with an english language label
 }
 
-#Display in order of: the label - alphabetical
+#Display in order of: the uri of the concept
 ORDER BY ?concepturi
