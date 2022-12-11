@@ -1,5 +1,6 @@
 # sparql
 A range of annotated basic SPARQL queries against skos-based vocabularies using the GSQ vocabulary library as example data https://vocabs.gsq.digital
+These principles can be applied to any vocabulary or taxonomy. The queries here are meant to demonstrate the most basic SPARQL functions against a set of vocabularies (essentially simplified ontologies) to provide a tool to familiarise a user with the essentials of graph querying.
 
 Basic Notes
 - SPARQL nulls are different to SQL nulls. A null value in sparql will result in the whole row being omitted. Therefore where you expect nulls to be present use an OPTIONAL clause. Further to this is you bundle criteria in an OPTIONAL clause it will check for all those criteria to be true at once. So Optional {X=True; Y=True; requires both to be true at once to get a result. If you want to return X if it exists, and Y if it exists independently use two separate OPTIONAL calls, i.e. OPTIONAL {X=True}. OPTIONAL {Y=True}
