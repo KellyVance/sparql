@@ -1,0 +1,30 @@
+#This query will return all the concepts in the graph and the Concept Scheme to which they belong
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+#Return a table of the Concept names and their correpsonding ConceptScheme names. (uris for each are commented out, but can be un-commented for checking)
+SELECT 
+    #?concepturi 
+    ?preflabel 
+    ?schemename 
+    #?inscheme
+
+WHERE {
+#find concepts in the graph, their names, and the inScheme they are included in
+?concepturi a skos:Concept ;
+skos:prefLabel ?preflabel ;
+skos:inScheme ?inscheme .
+
+#find conceptSchemes in the graph and their names
+?schemeuri a skos:ConceptScheme ;
+    skos:prefLabel ?schemename .
+
+#join concepts (concepturi) to their conceptschemes, based on the inScheme declaration, i.e. the matching schemeuri to the included skos:inScheme for each concepturi
+?concepturi skos:inScheme ?schemeuri .
+
+#Apply a filter to English Language tags only on concept labels
+FILTER(LANG(?preflabel)="en")
+}
+
+#alphabetical order of conceptScheme labels
+ORDER BY ?schemename
