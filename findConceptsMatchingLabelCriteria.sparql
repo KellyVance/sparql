@@ -1,0 +1,31 @@
+#This query will return all the concepts across the graph database that match speficic label or notation filters.
+#The filter set includes a language filter, a preferred label filter, a preferred + alt label filtee, and a notation filter (some filters inactivated by comment tags but provided as examples)
+#Note: this will give multiple rows for concepts with multiple altlabels
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+ 
+
+SELECT DISTINCT 
+  ?concepturi
+  ?prefLabel
+  ?altlabel
+  ?notation
+  ?definition
+
+WHERE {{ 
+    ?concepturi a skos:Concept ; 
+  	  skos:prefLabel ?prefLabel ;
+    
+    #set optional results: 
+    OPTIONAL {?concepturi skos:notation ?notation } . #if a concept has a notation return it, but dont exclude concepts without a notation
+    OPTIONAL {?concepturi skos:definition ?definition}. #if a concept has a definition return it, but dont exclude concepts without a definition
+    OPTIONAL {?concepturi skos:altLabel ?altlabel } . #if a concept has an alias return it, but dont exclude concepts without an alternative label    
+    }
+
+#Set Filters
+FILTER(LANG(?prefLabel)="en") #english language
+FILTER CONTAINS(lcase(?prefLabel), 'data') #preferredlabels with Student included in the name (case de-sensitised by filtering on lowercase translated ?preflabel results)
+#FILTER (CONTAINS(lcase(?prefLabel), 'gas') || CONTAINS(lcase(?altlabel), 'gas')). #preferred OR alt labels (|| indicates an OR statement) with School included in the name (case de-sensitised by filtering on lowercase translated ?preflabel results). 
+#FILTER (lcase(?notation)='au') . #notations that exactly match 'au' (case de-sensitised by filtering on lowercase translated ?notation results)
+}
+ORDER BY ?concepturi
