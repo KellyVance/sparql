@@ -24,8 +24,8 @@ WHERE {{
 
 #Set Filters
 FILTER(LANG(?prefLabel)="en") #english language
-FILTER CONTAINS(lcase(?prefLabel), 'data') #preferredlabels with Student included in the name (case de-sensitised by filtering on lowercase translated ?preflabel results)
-#FILTER (CONTAINS(lcase(?prefLabel), 'gas') || CONTAINS(lcase(?altlabel), 'gas')). #preferred OR alt labels (|| indicates an OR statement) with School included in the name (case de-sensitised by filtering on lowercase translated ?preflabel results). 
+FILTER CONTAINS(lcase(?prefLabel), 'data') #preferredlabels with Data included in the name (case de-sensitised by filtering on lowercase translated ?preflabel results)
+#FILTER (CONTAINS(lcase(?prefLabel), 'gas') || CONTAINS(lcase(?altlabel), 'gas')). #preferred OR alt labels (|| indicates an OR statement) with Gas included in the name (case de-sensitised by filtering on lowercase translated ?preflabel results). 
 #FILTER (lcase(?notation)='au') . #notations that exactly match 'au' (case de-sensitised by filtering on lowercase translated ?notation results)
 }
 ORDER BY ?concepturi
