@@ -1,5 +1,5 @@
 # sparql
-A range of simple annotated SPARQL queries against skos-based vocabularies using the GSQ vocabulary library as example data https://vocabs.gsq.digital
+A range of simple annotated SPARQL queries against skos-based vocabularies using the [GSQ vocabulary library](https://vocabs.gsq.digital) as example data 
 These principles can be applied to any vocabulary or taxonomy. The queries here are meant to demonstrate the most basic SPARQL functions against a set of vocabularies (essentially simplified ontologies) to provide a tool to familiarise a user with the essentials of graph querying. To test the queres in this repository go to https://vocabs.gsq.digital/sparql/ to see the results.
 
 **Disclaimer**
