@@ -1,5 +1,5 @@
 #This query will return all the concepts across the graph database that match speficic label or notation filters.
-#The filter set includes a language filter, a preferred label filter, a preferred + alt label filtee, and a notation filter (some filters inactivated by comment tags but provided as examples)
+#The filter set includes a language filter, a preferred label filter, a preferred + alt label filter, and a notation filter (some filters inactivated by comment tags but provided as examples)
 #Note: this will give multiple rows for concepts with multiple altlabels
 
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
