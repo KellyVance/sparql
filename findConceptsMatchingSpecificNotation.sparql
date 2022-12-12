@@ -1,0 +1,20 @@
+#This query will find the uri, name, and notation of any concept in the graph matching a specified notation
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+#Return a table of all the information found by the query
+SELECT *
+
+WHERE {
+
+#Primary Subject: Concepts. Bring back their uri, preferred name, and notation
+?concepturi a skos:Concept ;
+    skos:prefLabel ?preflabel ;
+    skos:notation ?notation .
+
+#Set filters
+FILTER (lcase(?notation)='au') . #filter by a case de-sensitised notation. (lower case translation of the notations)
+FILTER(LANG(?preflabel)="en") . #filter by concepts with an english language preferred name
+}
+#order by the concept uri
+ORDER BY ?concepturi
