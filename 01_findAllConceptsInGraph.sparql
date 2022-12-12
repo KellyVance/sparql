@@ -5,7 +5,7 @@ SELECT *
 
 WHERE {
 
-#Primary Subject: return all Concepts in the graph and their preferred labels
+#Define the Primary Subject: return all skos Concepts in the graph and their preferred labels ? defined the label used in the return skos:concept the subject, skos:preflabel the other thing(s) we want against the subject, and the '.' closes out this subject within the query.
 ?concepturi a skos:Concept ;
 skos:prefLabel ?preflabel .
 
