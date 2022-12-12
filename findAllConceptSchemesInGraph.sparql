@@ -7,7 +7,7 @@ SELECT *
 
 WHERE {
 
-#Primary Subject: return all ConceptsSchemes (whole vocabularies) in the graph and their preferred labels
+#Primary Subject: return all ConceptSchemes (whole vocabularies) in the graph and their preferred labels
 ?conceptScheme a skos:ConceptScheme ;
 skos:prefLabel ?preflabel .
 
