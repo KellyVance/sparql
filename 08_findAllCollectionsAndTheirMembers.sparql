@@ -1,3 +1,5 @@
+#this query will find all the collections found in the graph and display all the members included in those collections. 
+
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
  
 #Display everything available from the query
