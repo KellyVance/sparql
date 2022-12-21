@@ -1,0 +1,26 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+ 
+#Display everything available from the query
+SELECT *
+
+WHERE {
+#return all Collections in the graph and their preferred labels
+?collectionuri a skos:Collection ;
+    skos:prefLabel ?collectionlabel .
+
+#find Concepts in the graph and their names
+?concepturi a skos:Concept ;
+    skos:prefLabel ?conceptlabel .
+
+#join collections (collectionturi) to all their member concepts, based on the skos:member declaration, i.e Collection has Member Concept 
+?collectionuri skos:member ?concepturi .
+
+#If a concept has a definition return that too. But make it optional so any concept lacking a definition is still returned
+OPTIONAL {?concepturi skos:definition ?definition}.
+
+#Apply filters
+FILTER(LANG(?conceptlabel)="en") #restrict to results with an english language label
+}
+
+#Display in alphabetical order of the label
+ORDER BY DESC (?collectionlabel)
