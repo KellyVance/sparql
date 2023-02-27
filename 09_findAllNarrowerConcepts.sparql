@@ -5,9 +5,11 @@ SELECT
   ?concepturi 
   ?prefLabel 
 
-#Primary Subject: The narrower concept. Here the Narrower Concepts are the subjects we want to return and the Broader Concepts are objects that are related to the subjects as broader terms. 
-#so we say we want Concepts (?concepturi) that have a skos:broader relationship to <http://linked.data.gov.au/def/geo-commodities/metal>.
-#NOTE: This query will only find the direct matches. i.e. one link in the chain away that state the specific concept listed is its broader term
+#Primary Subject: The narrower concept. Here the Narrower Concepts are the subjects we want to return and the parent Concepts are objects that are related to the subjects as broader terms. 
+#Therefor the query searches for Concepts (?concepturi) that have a skos:broader relationship to <http://linked.data.gov.au/def/geo-commodities/metal>.
+#NOTE:
+#This query will only find the direct matches. i.e. one link in the chain away that state the specific concept listed is its broader term
+#To find all the subclasses use * after broader to make it a transitive query i.e. skos:broader*
     WHERE {
   {?concepturi skos:broader <http://linked.data.gov.au/def/geo-commodities/metal> .
   ?concepturi skos:prefLabel ?prefLabel . }
