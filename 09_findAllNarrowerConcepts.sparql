@@ -3,7 +3,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 #Return a table of the concept uris and their preferred names
 SELECT
   ?concepturi 
-  ?preflabel 
+  ?prefLabel 
 
 #Primary Subject: The narrower concept. Here the Narrower Concepts are the subjects we want to return and the Broader Concepts are objects that are related to the subjects as broader terms. 
 #so we say we want Concepts (?concepturi) that have a skos:broader relationship to <http://linked.data.gov.au/def/geo-commodities/metal>.
@@ -13,8 +13,8 @@ SELECT
   ?concepturi skos:prefLabel ?prefLabel . }
 
   #Apply Filters
-  FILTER(LANG(?preflabel)="en") #labels that are tagged as English language
+  FILTER(LANG(?prefLabel)="en") #labels that are tagged as English language
   } 
 
 #Set Ordering
-ORDER BY LCASE(?preflabel) #by the preferred name of concepts
+ORDER BY LCASE(?prefLabel) #by the preferred name of concepts
