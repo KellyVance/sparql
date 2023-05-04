@@ -5,6 +5,8 @@ These principles can be applied to any resource description framework (RDF) voca
 
 Numbering of the sparql files only indicates perceived complexity and progression of function specificity.
 
+Additional demonstration of queries is available at the [GSQ Vocabulary SPARQL Queries Page](https://github.com/geological-survey-of-queensland/vocabularies/wiki/Vocabulary-SPARQL-queries)
+
 **Disclaimer**
 As of the time of writing (2022-12-22) I am not an expert on SPARQL. These queries serve to record what I know so far and to build out a library of queries as I learn how to make SPARQL do the things I want. The intent is for the annotation and examples to provide guidance to others learning this query langauge in a simplified and plain language manner.
 
