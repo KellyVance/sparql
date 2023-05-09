@@ -26,7 +26,7 @@ OPTIONAL {?concepturi skos:notation ?notation} . #optional notations
            {?broaderuri a skos:Concept ;
             skos:broader ?concepturi .
 }} 
-#select all concepts in the graph as broaderuri that have broader concepts. But call all the broader concepts concepturi to make the equivalent to the main query.
+#select all concepts in the graph as broaderuri that have broader concepts. But call all the broader concepts to those broaderuri subjects concepturi to make them equivalent to the main query subjects.
 #in effect, get all the concepts in the target conceptScheme then remove all the concepts that are listed as a broader term by any other concept.
 }
 
