@@ -18,8 +18,9 @@ skos:inScheme <https://linked.data.gov.au/def/geo-commodities> .
 OPTIONAL {?concepturi skos:definition ?definition}. #optional definitions
 OPTIONAL {?concepturi skos:notation ?notation} . #optional notations
 
-#Apply filters
+#Apply filters by removing the unwawnted broader terms
 # from the above query remove (MINUS) all the results from the following query
+#return all concepts as broaderuri and then list their broader concepts as concepturi (so they can be removed as equivalents to the full concepturi list)
     MINUS {SELECT ?broaderuri ?concepturi
            WHERE
            {?broaderuri a skos:Concept ;
