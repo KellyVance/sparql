@@ -1,4 +1,4 @@
-#this query will find all the concepts that do not have narrower(child) concepts when using a conceptScheme that only explicitly declares skos:broader relationsips. 
+#this query will find all the concepts that do not have narrower(child) concepts in a way that assumes the conceptScheme only declares the skos:broader relationsips. 
 
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
  
