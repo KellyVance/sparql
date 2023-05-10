@@ -1,4 +1,4 @@
-#this query will find all the concepts that do not have narrower(child) concepts in a way that assumes the conceptScheme only declares the skos:broader relationsips. 
+#this query will find all the concepts that do not have narrower(child) concepts when using a conceptScheme that only explicitly declares skos:broader relationships. 
 
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
  
@@ -7,27 +7,28 @@ SELECT *
 
 WHERE {
 
-#Define the Primary Subject: return all skos Concepts in the graph and their preferred labels
-# ? defines the label returned by the query against the skos:Concept subject
-# skos:preflabel the other thing(s) we want against the subject, and the '.' closes out this subject within the query.
+#Define the Primary Subject: return all skos Concepts and use the ?prefix to label them concepturi
 ?concepturi a skos:Concept ;
-skos:prefLabel ?preflabel ;
-skos:inScheme <https://linked.data.gov.au/def/geo-commodities> .
+#Inclue skos:preflabels that relate directly to each Concept. ";" breaks each line
+	skos:prefLabel ?preflabel ;
+#specify which vocabulary scheme the concepts belong to. Use '.' to close this subject within the query.
+	skos:inScheme <http://linked.data.gov.au/def/geo-commodities> .
 
 #Set Optional returns (to ignore sparql null rule), i.e. return blank instead of preventing result
 OPTIONAL {?concepturi skos:definition ?definition}. #optional definitions
 OPTIONAL {?concepturi skos:notation ?notation} . #optional notations
 
-#Apply filters by removing the unwawnted broader terms
+#Apply filters and exceptions
 # from the above query remove (MINUS) all the results from the following query
-#return all concepts as broaderuri and then list their broader concepts as concepturi (so they can be removed as equivalents to the full concepturi list)
-    MINUS {SELECT ?broaderuri ?concepturi
+  
+    MINUS {SELECT 
+    ?broaderuri #select all concepts in the knowledge graph as broaderuri
+    ?concepturi #that have skos:broader concepts. But call all the broader concepts concepturi to make the equivalent to the main query so they can be MINUSed from the main query.
            WHERE
            {?broaderuri a skos:Concept ;
             skos:broader ?concepturi .
 }} 
-#select all concepts in the graph as broaderuri that have broader concepts. But call all the broader concepts to those broaderuri subjects concepturi to make them equivalent to the main query subjects.
-#in effect, get all the concepts in the target conceptScheme then remove all the concepts that are listed as a broader term by any other concept.
+#in effect, get all the concepts in the target conceptScheme then remove all the concepts that are a skos:broader concept to any other concept.
 }
 
 #Display in order of: the uri of the concept
