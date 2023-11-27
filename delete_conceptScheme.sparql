@@ -1,0 +1,28 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#> 
+PREFIX EXAMPLE: <https://example.com/def/EXAMPLE>
+DELETE { 
+    ?concept ?p ?o . 
+    ?label ?pLabel ?oLabel . 
+    ?scheme ?pScheme ?oScheme . 
+} 
+WHERE{ 
+    ?concept a skos:Concept . 
+    FILTER NOT EXISTS{ 
+        ?concept skos:inScheme|skos:topConceptOf|^skos:hasTopConcept EXAMPLE: . 
+    } 
+    ?concept ?p ?o . 
+    OPTIONAL { 
+        ?concept ?p2 ?label . 
+        ?label a skosxl:Label . 
+        ?label ?pLabel ?oLabel . 
+    } 
+    ?scheme a skos:ConceptScheme . 
+    FILTER (?scheme != EXAMPLE:)  
+    ?scheme ?pScheme ?oScheme . 
+    OPTIONAL{ 
+        ?scheme ?p3 ?labelScheme . 
+        ?labelScheme a skosxl:Label . 
+        ?labelScheme ?pLabelScheme ?oLabelScheme . 
+    } 
+}
