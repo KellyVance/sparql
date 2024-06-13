@@ -12,7 +12,7 @@ WHERE {
 ?concepturi a skos:Concept ;
 skos:prefLabel ?preflabel .
 
-#Set Optional returns (to ignore sparql null rule), i.e. return blank instead of preventing result
+#Set Optional returns (to ignore sparql null rule), i.e. return blank instead of preventing result.
 OPTIONAL {?concepturi skos:definition ?definition}. #optional definitions
 OPTIONAL {?concepturi skos:notation ?notation} . #optional notations
 
