@@ -5,8 +5,8 @@ SELECT *
 
 WHERE {
 
-#Define the Primary Subject: return all skos Concepts in the graph and their preferred labels. 
-#? defines the label used in the return for skos:concept (the subject),
+#Define the Primary Subject: return all "a skos:Concept" in the graph and their preferred labels. 
+#? defines the label (concepturi) used in the return for skos:concept (the subject),
 #skos:preflabel the other thing(s) we want directly against the subject,
 # and '.' closes out this subject within the query.
 ?concepturi a skos:Concept ;
