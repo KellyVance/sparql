@@ -1,0 +1,68 @@
+#1. This query will find all the conceptSchemes (Primary Lists) in the graph and their definitions (where present).
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT *
+WHERE { ?conceptScheme a skos:ConceptScheme ;
+skos:prefLabel ?preflabel .
+OPTIONAL {?conceptScheme skos:definition ?definition}.
+OPTIONAL {?conceptScheme dcterms:accessRights ?access}.
+FILTER(LANG(?preflabel)="en")
+}
+
+#2. This query will return all the concepts (Primary unit of understanding) in the graph with their preferred label, definition, notation and Concept Scheme
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT 
+    ?concepturi 
+    ?preflabel 
+    ?definition
+	?notation
+	?broader
+    ?inscheme
+WHERE {
+?concepturi a skos:Concept ;
+skos:prefLabel ?preflabel ;
+skos:inScheme ?inscheme .
+  OPTIONAL {?concepturi skos:definition ?definition }.
+  OPTIONAL {?concepturi skos:notation ?notation }.
+  OPTIONAL {?concepturi skos:broader ?broader }.
+FILTER(LANG(?preflabel)="en")
+}
+
+#3. #This query will return all the alternative labels (synonyms) in the graph with their associated concepts. #Note: this will give multiple rows for concepts with multiple altlabels
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT 
+  ?concepturi
+  #?prefLabel
+  ?altlabel
+WHERE {{ 
+    ?concepturi a skos:Concept ; 
+  	  skos:prefLabel ?prefLabel ;
+      skos:altLabel ?altlabel ;
+      }
+FILTER(LANG(?prefLabel)="en") 
+}
+
+#4. This query will find all the Collections (Secondary use-case Lists) in the graph and their definitions (where present). These lists directly reference the concepts from the conceptSchemes, they do not duplicate information.
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT *
+WHERE { ?collection a skos:Collection ;
+skos:prefLabel ?preflabel .
+OPTIONAL {?collection skos:definition ?definition}.
+FILTER(LANG(?preflabel)="en")
+}
+
+#5. this query will find all the member concepts for each collection in the graph. Note: Concept Labels are for checking, but member labels should be taken from the concept query
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT
+	?collectionuri
+	?memberconcepturi
+	?conceptlabel
+WHERE {
+?collectionuri a skos:Collection ;
+    skos:prefLabel ?collectionlabel .
+?memberconcepturi a skos:Concept ;
+    skos:prefLabel ?conceptlabel .
+?collectionuri skos:member ?memberconcepturi .
+FILTER(LANG(?conceptlabel)="en")
+}
